@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/components/cart_item_widget.dart';
 import 'package:shop/models/cart.dart';
+import 'package:shop/models/order_list.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -13,7 +12,7 @@ class CartPage extends StatelessWidget {
     final Cart cart = Provider.of(context);
     final items = cart.items.values.toList();
     return Scaffold(
-      appBar: AppBar(title: Text('Carrinho')),
+      appBar: AppBar(title: const Text('Carrinho')),
       body: Column(children: [
         Card(
           margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
@@ -22,29 +21,34 @@ class CartPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   'Total',
                   style: TextStyle(fontSize: 20),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Chip(
                   backgroundColor: Theme.of(context).primaryColor,
                   label: Text(
-                    'R\$ ${cart.totalAmount}',
-                    style: TextStyle(
+                    'R\$ ${cart.totalAmount.toStringAsFixed(2)}',
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 TextButton(
-                  onPressed: () {},
-                  child: Text('Comprar'),
+                  onPressed: () {
+                    Provider.of<OrderList>(context, listen: false)
+                        .addOrder(cart);
+
+                    cart.clear();
+                  },
                   style: TextButton.styleFrom(
                     textStyle: TextStyle(color: Theme.of(context).primaryColor),
                   ),
+                  child: const Text('Comprar'),
                 )
               ],
             ),
