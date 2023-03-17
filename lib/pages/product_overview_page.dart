@@ -55,6 +55,7 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
               icon: const Icon(Icons.shopping_cart),
             ),
             builder: (ctx, cart, child) => BadgeClass(
+              color: Theme.of(context).colorScheme.secondary,
               value: cart.itemsCount.toString(),
               child: child!,
             ),
