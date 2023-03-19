@@ -29,7 +29,7 @@ class CartPage extends StatelessWidget {
                   width: 10,
                 ),
                 Chip(
-                  backgroundColor: Theme.of(context).primaryColor,
+                  backgroundColor: Theme.of(context).colorScheme.primary,
                   label: Text(
                     'R\$ ${cart.totalAmount.toStringAsFixed(2)}',
                     style: const TextStyle(
